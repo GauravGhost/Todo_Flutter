@@ -18,15 +18,17 @@ class _HomePageState extends State<HomePage> {
   void checkboxChanged(bool? value, int index) {
     setState(() {
       todoList[index][1] = !todoList[index][1];
+      
     });
-    Navigator.of(context).pop();
   }
 
 // Save a new task
 void saveNewTask(){
   setState(() {
     todoList.add([_controller.text, false]);
+    _controller.clear();
   });
+   Navigator.of(context).pop();
 }
 
 // Create a new task
