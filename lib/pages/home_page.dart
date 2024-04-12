@@ -18,18 +18,24 @@ class _HomePageState extends State<HomePage> {
   void checkboxChanged(bool? value, int index) {
     setState(() {
       todoList[index][1] = !todoList[index][1];
-      
     });
   }
 
 // Save a new task
-void saveNewTask(){
-  setState(() {
-    todoList.add([_controller.text, false]);
-    _controller.clear();
-  });
-   Navigator.of(context).pop();
-}
+  void saveNewTask() {
+    setState(() {
+      todoList.add([_controller.text, false]);
+      _controller.clear();
+    });
+    Navigator.of(context).pop();
+  }
+
+// Delete Task
+  void deleteTask(int index) {
+    setState(() {
+      todoList.removeAt(index);
+    });
+  }
 
 // Create a new task
   void createNewTask() {
@@ -40,7 +46,7 @@ void saveNewTask(){
           controller: _controller,
           onSave: saveNewTask,
           onCancel: () => Navigator.of(context).pop(),
-          );
+        );
       },
     );
   }
@@ -61,6 +67,7 @@ void saveNewTask(){
             taskName: todoList[index][0],
             taskCompleted: todoList[index][1],
             onChanged: (value) => checkboxChanged(value, index),
+            deleteFunction: (context) => deleteTask(index),
           );
         },
       ),
